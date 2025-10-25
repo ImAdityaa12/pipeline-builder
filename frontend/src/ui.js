@@ -92,7 +92,7 @@ export const PipelineUI = () => {
         addNode(newNode);
       }
     },
-    [reactFlowInstance]
+    [reactFlowInstance, getNodeID, addNode]
   );
 
   const onDragOver = useCallback((event) => {
@@ -101,8 +101,8 @@ export const PipelineUI = () => {
   }, []);
 
   return (
-    <>
-      <div ref={reactFlowWrapper} style={{ width: '100wv', height: '70vh' }}>
+    <div className="w-full h-full bg-gray-50">
+      <div ref={reactFlowWrapper} className="w-full h-full">
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -116,12 +116,45 @@ export const PipelineUI = () => {
           proOptions={proOptions}
           snapGrid={[gridSize, gridSize]}
           connectionLineType='smoothstep'
+          defaultEdgeOptions={{
+            style: { strokeWidth: 2, stroke: '#0ea5e9' },
+            type: 'smoothstep',
+            markerEnd: {
+              type: 'arrowclosed',
+              color: '#0ea5e9',
+            },
+          }}
         >
-          <Background color="#aaa" gap={gridSize} />
-          <Controls />
-          <MiniMap />
+          <Background
+            color="#e2e8f0"
+            gap={gridSize}
+            size={1}
+            variant="dots"
+          />
+          <Controls
+            className="bg-white shadow-lg border border-gray-200 rounded-lg"
+            showInteractive={false}
+          />
+          <MiniMap
+            className="bg-white border border-gray-200 rounded-lg shadow-lg"
+            nodeColor={(node) => {
+              const colorMap = {
+                customInput: '#10b981',
+                customOutput: '#ef4444',
+                llm: '#8b5cf6',
+                text: '#3b82f6',
+                math: '#f97316',
+                transform: '#6366f1',
+                condition: '#eab308',
+                filter: '#14b8a6',
+                apiRequest: '#06b6d4',
+              };
+              return colorMap[node.type] || '#6b7280';
+            }}
+            maskColor="rgba(255, 255, 255, 0.8)"
+          />
         </ReactFlow>
       </div>
-    </>
+    </div>
   )
 }
