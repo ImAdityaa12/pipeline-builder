@@ -30,23 +30,43 @@ export const OutputNode = ({ id, data }) => {
       data={data}
       title="Output"
       inputs={inputs}
+      nodeType="customOutput"
+      icon="📤"
     >
-      <label style={{ display: 'block', marginBottom: '4px' }}>
-        Name:
-        <input
-          type="text"
-          value={currName}
-          onChange={handleNameChange}
-          style={{ marginLeft: '4px', width: '100px' }}
-        />
-      </label>
-      <label style={{ display: 'block' }}>
-        Type:
-        <select value={outputType} onChange={handleTypeChange} style={{ marginLeft: '4px' }}>
-          <option value="Text">Text</option>
-          <option value="File">Image</option>
-        </select>
-      </label>
+      <div className="space-y-3">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Output Name
+          </label>
+          <input
+            type="text"
+            value={currName}
+            onChange={handleNameChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                     focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 
+                     text-sm transition-colors duration-200"
+            placeholder="Enter output name"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Output Type
+          </label>
+          <select
+            value={outputType}
+            onChange={handleTypeChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                     focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 
+                     text-sm bg-white transition-colors duration-200"
+          >
+            <option value="Text">Text</option>
+            <option value="Image">Image</option>
+            <option value="File">File</option>
+            <option value="JSON">JSON</option>
+          </select>
+        </div>
+      </div>
     </BaseNode>
   );
 }

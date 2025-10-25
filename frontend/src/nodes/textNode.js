@@ -25,16 +25,29 @@ export const TextNode = ({ id, data }) => {
       data={data}
       title="Text"
       outputs={outputs}
+      nodeType="text"
+      icon="📝"
     >
-      <label style={{ display: 'block' }}>
-        Text:
-        <input
-          type="text"
-          value={currText}
-          onChange={handleTextChange}
-          style={{ marginLeft: '4px', width: '120px' }}
-        />
-      </label>
+      <div className="space-y-3">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Text Content
+          </label>
+          <textarea
+            value={currText}
+            onChange={handleTextChange}
+            rows={3}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                     text-sm transition-colors duration-200 resize-none"
+            placeholder="Enter text content or use {{variable}} syntax"
+          />
+        </div>
+
+        <div className="text-xs text-gray-500 bg-gray-50 p-2 rounded">
+          <strong>Tip:</strong> Use <code className="bg-gray-200 px-1 rounded">{'{{variable}}'}</code> to reference other nodes
+        </div>
+      </div>
     </BaseNode>
   );
 }
