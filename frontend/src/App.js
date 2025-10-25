@@ -20,12 +20,12 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex flex-col h-[calc(100vh-80px)]">
-        {/* Toolbar */}
-        <div className="bg-white border-b border-gray-200 shadow-sm">
+      {/* Main Content with Sidebar Layout */}
+      <main className="flex h-[calc(100vh-80px)]">
+        {/* Sidebar */}
+        <aside className="w-80 bg-white border-r border-gray-200 shadow-sm overflow-y-auto">
           <PipelineToolbar />
-        </div>
+        </aside>
 
         {/* Pipeline Canvas */}
         <div className="flex-1 relative">
