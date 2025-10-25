@@ -49,7 +49,12 @@ export const BaseNode = ({
 
         // Calculate position for multiple handles
         let positionStyle = {};
-        if (totalHandles > 1) {
+
+        // If custom style is provided (like from TextNode), use it
+        if (handleStyle.top) {
+            positionStyle = { ...handleStyle };
+        } else if (totalHandles > 1) {
+            // Default positioning for multiple handles
             const spacing = 100 / (totalHandles + 1);
             positionStyle = { top: `${spacing * (index + 1)}%` };
         }
@@ -61,16 +66,20 @@ export const BaseNode = ({
                 position={position}
                 id={`${id}-${handleId}`}
                 className="w-3 h-3 border-2 border-white bg-primary-500 hover:bg-primary-600 transition-all duration-200"
-                style={{ ...positionStyle, ...handleStyle }}
+                style={positionStyle}
             />
         );
     };
 
     return (
         <div
-            className={`min-w-[${width}px] bg-white border-2 rounded-xl shadow-node hover:shadow-node-hover 
+            className={`bg-white border-2 rounded-xl shadow-node hover:shadow-node-hover 
                        transition-all duration-200 overflow-hidden ${getNodeColor(nodeType)}`}
-            style={{ width: width === 'auto' ? 'auto' : width }}
+            style={{
+                width: width === 'auto' ? 'auto' : width,
+                height: height === 'auto' ? 'auto' : height,
+                minWidth: '280px'
+            }}
         >
             {/* Render input handles */}
             {inputs.map((input, index) => renderHandle(input, index, inputs.length))}
